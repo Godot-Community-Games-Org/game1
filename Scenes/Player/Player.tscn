@@ -7,6 +7,7 @@
 radius = 39.0512
 
 [node name="Player" type="CharacterBody2D"]
+motion_mode = 1
 script = ExtResource("1_50mwi")
 
 [node name="PlayerCollider" type="CollisionShape2D" parent="."]
