@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpbcr3o6p347w"]
+
+[ext_resource type="PackedScene" uid="uid://b4vmgo7l3432n" path="res://Scenes/Player/Player.tscn" id="1_s1rid"]
+[ext_resource type="PackedScene" uid="uid://cvibb8pr0mfem" path="res://Components/PrototypeBlock/PrototypeBlock.tscn" id="2_tof2i"]
+
+[node name="PrototypeScene" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_s1rid")]
+position = Vector2(386, 304)
+
+[node name="PrototypeBlock" parent="." instance=ExtResource("2_tof2i")]
+position = Vector2(571, 306)
+scale = Vector2(2, 2)
