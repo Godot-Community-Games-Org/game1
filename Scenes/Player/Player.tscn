@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://b4vmgo7l3432n"]
+[gd_scene load_steps=5 format=3 uid="uid://b4vmgo7l3432n"]
 
 [ext_resource type="Texture2D" uid="uid://b05hj6ognkfqi" path="res://icon.svg" id="1_3a4ug"]
 [ext_resource type="Script" path="res://Scenes/Player/Player.gd" id="1_50mwi"]
+[ext_resource type="Script" path="res://Components/CameraShaker/camera_shaker.gd" id="3_fwtxn"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ncfga"]
 radius = 39.0512
@@ -16,3 +17,11 @@ shape = SubResource("CircleShape2D_ncfga")
 [node name="PlayerSprite" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_3a4ug")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Modules" type="Node" parent="."]
+
+[node name="CameraShaker" type="Node" parent="Modules" node_paths=PackedStringArray("camera")]
+script = ExtResource("3_fwtxn")
+camera = NodePath("../../Camera2D")
