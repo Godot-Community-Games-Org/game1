@@ -1,6 +1,6 @@
-class_name extend
+class_name UtilityFunctions
 
-# Extend class:
+# UtilityFunctions class:
 # a class containing static functions for global use.
 
 #Gets all of the parents children (grand children, great grand children, ect)
