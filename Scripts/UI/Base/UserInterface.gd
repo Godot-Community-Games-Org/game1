@@ -2,10 +2,25 @@ extends Control
 class_name UserInterface
 ## UserInterface Class: [br]
 ## A Base UI class to contain common UI features within the game such as:[br]
+## - Controller Ui Support
 ## - viewport Text Reizing (currently requires text size override to be on.).[br]
 ## - Translation Switching (Unimplemented).
 
+@export_group("Focus Start", "start")
 
+enum FOCUS_START_ENUM 
+{
+	## Activates when ready function is called.
+	ready,
+	## Activates when changed to visible.
+	visibility_changed,
+	## Activates when either ready or visible is called
+	both
+}
+
+@export var start_on: bool = true
+@export var start_focus: Control
+@export var start_MODE: FOCUS_START_ENUM
 @export_group("Text Resize", "resize")
 
 ## Turns Text Resizing on or off.
@@ -46,6 +61,12 @@ func _ready() -> void:
 	
 	get_tree().get_root().size_changed.connect(font_resize)
 	font_resize()
+	
+	if start_on:
+		if start_focus != null:
+			start_focus.grab_focus()
+		else:
+			printerr("You do not have a focus node selected in UI class \n turn focus off or select focus node")
 
 ## Resizes all of the child nodes fonts acording to the viewport size.
 func font_resize() -> void:
@@ -65,3 +86,14 @@ func font_resize() -> void:
 
 		# Apply the new font size to the node
 		node.add_theme_font_size_override("font_size", font_nodes[node] * formula)
+
+func _on_visibility_changed() -> void:
+	if !start_focus.is_inside_tree():
+		return;
+	if !start_on:
+		return;
+	if visible == true:
+		if start_focus != null:
+			start_focus.grab_focus()
+		else:
+			printerr("You do not have a focus node selected in UI class \n turn focus off or select focus node")

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/UI/Base/UserInterface.gd" id="1_ksjhh"]
 
-[node name="Control" type="Control"]
+[node name="Control" type="Control" node_paths=PackedStringArray("start_focus")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -10,29 +10,66 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ksjhh")
+start_focus = NodePath("AspectRatioContainer/VBoxContainer/Play")
 
-[node name="Label" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "hello"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Label2" type="Label" parent="Label"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.246914
-anchor_right = 1.0
-anchor_bottom = 1.24691
+anchor_left = 0.469618
+anchor_top = 0.395062
+anchor_right = 0.530382
+anchor_bottom = 0.604938
+offset_left = 14.5
+offset_right = -14.5
 grow_horizontal = 2
 grow_vertical = 2
-text = "hello"
-horizontal_alignment = 1
-vertical_alignment = 1
+stretch_mode = 3
 metadata/_edit_use_anchors_ = true
 
+[node name="VBoxContainer" type="VBoxContainer" parent="AspectRatioContainer"]
+layout_mode = 2
+
+[node name="Play" type="Button" parent="AspectRatioContainer/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../Resume")
+focus_neighbor_top = NodePath("../Quit")
+focus_neighbor_right = NodePath("../Quit")
+focus_neighbor_bottom = NodePath("../Resume")
+focus_next = NodePath("../Quit")
+focus_previous = NodePath("../Resume")
+text = "Play"
+
+[node name="Resume" type="Button" parent="AspectRatioContainer/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../Settings")
+focus_neighbor_top = NodePath("../Play")
+focus_neighbor_right = NodePath("../Play")
+focus_neighbor_bottom = NodePath("../Settings")
+focus_next = NodePath("../Play")
+focus_previous = NodePath("../Settings")
+text = "Resume"
+
+[node name="Settings" type="Button" parent="AspectRatioContainer/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../Quit")
+focus_neighbor_top = NodePath("../Resume")
+focus_neighbor_right = NodePath("../Resume")
+focus_neighbor_bottom = NodePath("../Quit")
+focus_next = NodePath("../Resume")
+focus_previous = NodePath("../Quit")
+text = "Settings"
+
+[node name="Quit" type="Button" parent="AspectRatioContainer/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../Play")
+focus_neighbor_top = NodePath("../Settings")
+focus_neighbor_right = NodePath("../Settings")
+focus_neighbor_bottom = NodePath("../Play")
+focus_next = NodePath("../Settings")
+focus_previous = NodePath("../Play")
+text = "Quit
+"
+
 [node name="Node2D" type="Node2D" parent="."]
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
