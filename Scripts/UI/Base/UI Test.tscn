@@ -18,7 +18,21 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 212
 text = "hello"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="Label"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.246914
+anchor_right = 1.0
+anchor_bottom = 1.24691
+grow_horizontal = 2
+grow_vertical = 2
+text = "hello"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Node2D" type="Node2D" parent="."]

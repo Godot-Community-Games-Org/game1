@@ -38,8 +38,11 @@ var font_nodes: Dictionary = {}
 func _ready() -> void:
 	# Store font size and node
 	for node: Node in UtilityFunctions.get_all_Children(self):
-		if node.has_theme_font_size_override("font_size"):
-			font_nodes[node] = node.get("theme_override_font_sizes/font_size")
+		if node is Control:
+			if node.has_theme_font_size_override("font_size"):
+				font_nodes[node] = node.get("theme_override_font_sizes/font_size")
+			elif node.has_theme_font_size("font_size"):
+				font_nodes[node] = node.get_theme_font_size("font_size")
 	
 	get_tree().get_root().size_changed.connect(font_resize)
 	font_resize()
