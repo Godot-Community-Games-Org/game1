@@ -94,7 +94,7 @@ func focus_grab() -> void:
 	if !start_on:
 		return;
 	if start_focus != null:
-		if start_focus is TabBar:
+		if start_focus.get_parent() is TabContainer:
 			start_focus.get_parent().current_tab = start_focus.get_parent().get_children().find(start_focus)
 			start_focus.get_parent().get_tab_bar().grab_focus()
 		else:

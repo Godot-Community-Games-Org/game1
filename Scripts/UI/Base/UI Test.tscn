@@ -10,7 +10,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ksjhh")
-start_focus = NodePath("TabContainer/TabBar2")
+start_focus = NodePath("TabContainer/Control2")
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
 visible = false
@@ -81,18 +81,23 @@ offset_right = 455.0
 offset_bottom = 283.0
 current_tab = 0
 
-[node name="TabBar" type="TabBar" parent="TabContainer"]
+[node name="Control" type="Control" parent="TabContainer"]
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="TabBar2" type="TabBar" parent="TabContainer"]
+[node name="Control2" type="Control" parent="TabContainer"]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="TabBar3" type="TabBar" parent="TabContainer"]
+[node name="Control3" type="Control" parent="TabContainer"]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 2
+
+[node name="Control4" type="Control" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
