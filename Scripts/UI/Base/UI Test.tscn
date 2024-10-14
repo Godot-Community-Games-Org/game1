@@ -100,5 +100,3 @@ metadata/_tab_index = 2
 visible = false
 layout_mode = 2
 metadata/_tab_index = 3
-
-[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]

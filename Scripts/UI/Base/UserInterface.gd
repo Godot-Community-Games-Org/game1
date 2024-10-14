@@ -22,8 +22,8 @@ enum FOCUS_START_ENUM
 }
 
 @export var start_on: bool = true ## Enables Focus Start
-@export var start_focus: Control ## The [Control] that will grab focus based on [param start_MODE].
-@export var start_MODE: FOCUS_START_ENUM ## the focus selection mode for when to grab focus on [param start_focus] (only should be changed on menues.) (uses: [enum FOCUS_START_ENUM]).
+@export var start_focus: Control = null ## The [Control] that will grab focus based on [param start_MODE].
+@export var start_MODE: FOCUS_START_ENUM = FOCUS_START_ENUM.READY ## the focus selection mode for when to grab focus on [param start_focus] (only should be changed on menues.) (uses: [enum FOCUS_START_ENUM]).
 
 
 @export_group("Text Resize", "resize")
@@ -56,6 +56,7 @@ var font_nodes: Dictionary = {} ## [Dictionary] to hold nodes with font size ove
 
 
 func _ready() -> void:
+	self.visibility_changed.connect(_on_visibility_changed)
 	# Store font size and node
 	for node: Node in UtilityFunctions.get_all_Children(self, UserInterface):
 		if node is Control:
@@ -96,7 +97,7 @@ func _on_visibility_changed() -> void:
 
 
 
-func focus_grab() -> void: ## checks if the [Control] should be focused on before calling [mathod grab_focus] on the [param start_focus] [Control]
+func focus_grab() -> void: ## checks if the [Control] should be focused on before calling [method grab_focus] on the [param start_focus] [Control]
 	if !start_on:
 		return;
 	if start_focus != null:
