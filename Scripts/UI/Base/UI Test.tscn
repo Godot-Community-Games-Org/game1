@@ -10,9 +10,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ksjhh")
-start_focus = NodePath("AspectRatioContainer/VBoxContainer/Play")
+start_focus = NodePath("TabContainer/TabBar2")
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.469618
@@ -71,5 +72,27 @@ text = "Quit
 "
 
 [node name="Node2D" type="Node2D" parent="."]
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 0
+offset_left = 91.0
+offset_top = 65.0
+offset_right = 455.0
+offset_bottom = 283.0
+current_tab = 0
+
+[node name="TabBar" type="TabBar" parent="TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="TabBar2" type="TabBar" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="TabBar3" type="TabBar" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]

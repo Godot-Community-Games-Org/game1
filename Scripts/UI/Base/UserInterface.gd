@@ -61,12 +61,8 @@ func _ready() -> void:
 	
 	get_tree().get_root().size_changed.connect(font_resize)
 	font_resize()
-	
-	if start_on:
-		if start_focus != null:
-			start_focus.grab_focus()
-		else:
-			printerr("You do not have a focus node selected in UI class \n turn focus off or select focus node")
+	if start_MODE == FOCUS_START_ENUM.ready or start_MODE == FOCUS_START_ENUM.both:
+		focus_grab()
 
 ## Resizes all of the child nodes fonts acording to the viewport size.
 func font_resize() -> void:
@@ -87,13 +83,21 @@ func font_resize() -> void:
 		# Apply the new font size to the node
 		node.add_theme_font_size_override("font_size", font_nodes[node] * formula)
 
+
 func _on_visibility_changed() -> void:
-	if !start_focus.is_inside_tree():
-		return;
+	if start_focus.is_inside_tree() && visible == true && (start_MODE == FOCUS_START_ENUM.visibility_changed or start_MODE == FOCUS_START_ENUM.both) :
+		focus_grab()
+
+
+
+func focus_grab() -> void:
 	if !start_on:
 		return;
-	if visible == true:
-		if start_focus != null:
-			start_focus.grab_focus()
+	if start_focus != null:
+		if start_focus is TabBar:
+			start_focus.get_parent().current_tab = start_focus.get_parent().get_children().find(start_focus)
+			start_focus.get_parent().get_tab_bar().grab_focus()
 		else:
-			printerr("You do not have a focus node selected in UI class \n turn focus off or select focus node")
+			start_focus.grab_focus()
+	else:
+		printerr("You do not have a focus node selected in UI class \n turn focus off or select focus node")
