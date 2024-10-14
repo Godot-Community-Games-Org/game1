@@ -13,7 +13,6 @@ script = ExtResource("1_ksjhh")
 start_focus = NodePath("TabContainer/Control2")
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.469618
@@ -74,12 +73,14 @@ text = "Quit
 [node name="Node2D" type="Node2D" parent="."]
 
 [node name="TabContainer" type="TabContainer" parent="."]
+visible = false
 layout_mode = 0
-offset_left = 91.0
-offset_top = 65.0
-offset_right = 455.0
-offset_bottom = 283.0
+anchor_left = 0.0789931
+anchor_top = 0.100309
+anchor_right = 0.394965
+anchor_bottom = 0.436728
 current_tab = 0
+metadata/_edit_use_anchors_ = true
 
 [node name="Control" type="Control" parent="TabContainer"]
 layout_mode = 2

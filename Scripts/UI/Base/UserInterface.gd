@@ -2,57 +2,62 @@ extends Control
 class_name UserInterface
 ## UserInterface Class: [br]
 ## A Base UI class to contain common UI features within the game such as:[br]
-## - Controller Ui Support
-## - viewport Text Reizing (currently requires text size override to be on.).[br]
+## - Controller Ui Support.[br]
+## - viewport Text Reizing.[br]
 ## - Translation Switching (Unimplemented).
 
 @export_group("Focus Start", "start")
 
 enum FOCUS_START_ENUM 
 {
-	## Activates when ready function is called.
-	ready,
-	## Activates when changed to visible.
-	visibility_changed,
-	## Activates when either ready or visible is called
-	both
+	## The [Control] selected by [param start_on] will grab focus 
+	## when the [method _ready] function is called.
+	READY, 
+	## The [Control] selected by [param start_on] will grab focus 
+	## when the [method _on_visibility_changed] function is called.
+	VISIBILITY_CHANGED,
+	## The [Control] selected by [param start_on] will grab focus 
+	## when either the [method _ready] function or [method _on_visibility_changed] fuction is called.
+	BOTH
 }
 
-@export var start_on: bool = true
-@export var start_focus: Control
-@export var start_MODE: FOCUS_START_ENUM
+@export var start_on: bool = true ## Enables Focus Start
+@export var start_focus: Control ## The [Control] that will grab focus based on [param start_MODE].
+@export var start_MODE: FOCUS_START_ENUM ## the focus selection mode for when to grab focus on [param start_focus] (only should be changed on menues.) (uses: [enum FOCUS_START_ENUM]).
+
+
 @export_group("Text Resize", "resize")
 
-## Turns Text Resizing on or off.
-@export var resize_on:bool = true
+
+@export var resize_on:bool = true ## Enables Text Resizing.
 
 enum RESIZE_MODE_ENUM 
 {
-	## the text will be resized using both the width and the height property.
-	both = 0,
-	## the text will be resized using th width property.
-	width = 2,
-	## the height will be resized using the height property.
-	height = 1
+	## the [Control]'s returned by [method get_all_children] [param font_size] property will be resized using the [Viewport]'s width and height property.
+	BOTH = 0, 
+	## the [Control]'s returned by [method get_all_children] [param font_size] property will be resized using the [Viewport]'s width property.
+	WIDTH = 2, 
+	## the [Control]'s returned by [method get_all_children] [param font_size] property will be resized using the [Viewport]'s height property.
+	HEIGHT = 1 
 }
 
-## Setting for how the UserInterface handles font resizing.
-@export var resize_MODE: RESIZE_MODE_ENUM = RESIZE_MODE_ENUM.both
 
-## original viewport base size.
-@onready var base_size: Vector2 = Vector2(
+@export var resize_MODE: RESIZE_MODE_ENUM = RESIZE_MODE_ENUM.BOTH ## Setting for how the [UserInterface] handles font resizing.
+
+
+@onready var base_size: Vector2 = Vector2( ## original viewport size.
 	ProjectSettings.get_setting("display/window/size/viewport_width"), 
 	ProjectSettings.get_setting("display/window/size/viewport_height")
-)
+) 
 
-## Dictionary to hold nodes with font size overrides
-var font_nodes: Dictionary = {}  
+
+var font_nodes: Dictionary = {} ## [Dictionary] to hold nodes with font size overrides
 
 
 
 func _ready() -> void:
 	# Store font size and node
-	for node: Node in UtilityFunctions.get_all_Children(self):
+	for node: Node in UtilityFunctions.get_all_Children(self, UserInterface):
 		if node is Control:
 			if node.has_theme_font_size_override("font_size"):
 				font_nodes[node] = node.get("theme_override_font_sizes/font_size")
@@ -61,11 +66,11 @@ func _ready() -> void:
 	
 	get_tree().get_root().size_changed.connect(font_resize)
 	font_resize()
-	if start_MODE == FOCUS_START_ENUM.ready or start_MODE == FOCUS_START_ENUM.both:
+	if start_MODE == FOCUS_START_ENUM.READY or start_MODE == FOCUS_START_ENUM.BOTH:
 		focus_grab()
 
-## Resizes all of the child nodes fonts acording to the viewport size.
-func font_resize() -> void:
+
+func font_resize() -> void: ## Resizes all of the child nodes fonts acording to the viewport size.
 	if !resize_on:
 		return
 		
@@ -85,12 +90,13 @@ func font_resize() -> void:
 
 
 func _on_visibility_changed() -> void:
-	if start_focus.is_inside_tree() && visible == true && (start_MODE == FOCUS_START_ENUM.visibility_changed or start_MODE == FOCUS_START_ENUM.both) :
+	if start_focus.is_inside_tree() && visible == true \
+	and (start_MODE == FOCUS_START_ENUM.VISIBILITY_CHANGED or start_MODE == FOCUS_START_ENUM.BOTH):
 		focus_grab()
 
 
 
-func focus_grab() -> void:
+func focus_grab() -> void: ## checks if the [Control] should be focused on before calling [mathod grab_focus] on the [param start_focus] [Control]
 	if !start_on:
 		return;
 	if start_focus != null:
@@ -100,4 +106,4 @@ func focus_grab() -> void:
 		else:
 			start_focus.grab_focus()
 	else:
-		printerr("You do not have a focus node selected in UI class \n turn focus off or select focus node")
+		push_error("You do not have a focus node selected in UI class \n turn focus off or select focus node")
