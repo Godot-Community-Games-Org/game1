@@ -10,9 +10,13 @@ config_version=5
 
 [application]
 
-config/name="Godot Community Project 1"
+config/name="Lost Pilot"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+global="*res://Scripts/Global/Global.gd"
 
 [dotnet]
 
