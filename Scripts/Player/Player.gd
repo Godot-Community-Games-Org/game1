@@ -32,7 +32,7 @@ var moving: bool = false
 var highlight_path: PackedVector2Array = []
 
 ## Reference to the interactable object currently selected by the player
-var selected_object: InteractableObj
+var selected_object: InteractableObject
 func _ready() -> void:
 	# Initialize global player
 	global.player = self
@@ -70,13 +70,17 @@ func _process_path_following(delta: float) -> void:
 		if position.distance_to(target_position) < speed * delta:
 			position = target_position
 			path_index += 1 # Move to the next point in the path
+			global.player_moved.emit(global.map.local_to_map(position))
 	else:
 		path.clear() # Clear the path array
 		path_index = 0 # Reset index to start
+		
+		
 
 ## Handles movement based on tile grid for non-player characters
 func _process_tile_movement(delta: float) -> void:
 	if global_position.distance_to(global.map.map_to_local(target_cell)) < 1.0: # Check if at target
+		global.player_moved.emit(global.map.local_to_map(position))
 		input_direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 		current_cell = global.map.local_to_map(global_position)
 		# Check if the next cell is not solid

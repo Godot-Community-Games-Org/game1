@@ -1,8 +1,7 @@
 extends Node
 
 ## Signal emitted when the player's turn ends.
-signal player_turn_end
-
+signal player_moved(position: Vector2i)
 ## Reference to the AStarGrid2D node for pathfinding.
 var pathfinder: AStarGrid2D
 
@@ -24,3 +23,6 @@ func calculate_path(start: Vector2, end: Vector2, tf: bool = true) -> PackedVect
 
 func in_map(cell: Vector2i):
 	return map.local_to_map(cell) in map.get_used_cells()
+
+func _ready() -> void:
+	player_moved.emit(Vector2i.ZERO)

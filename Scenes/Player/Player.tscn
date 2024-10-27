@@ -7,7 +7,6 @@
 script = ExtResource("1_4kof2")
 Actions = 8
 speed = 400.0
-pc = false
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_pi6i1")
