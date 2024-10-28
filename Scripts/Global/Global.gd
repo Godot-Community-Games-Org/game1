@@ -1,14 +1,17 @@
 extends Node
 
-## Signal emitted when the player's turn ends.
-signal player_moved(position: Vector2i)
-## Reference to the AStarGrid2D node for pathfinding.
-var pathfinder: AStarGrid2D
+# --- Public Properties ---
 
 ## Reference to the TileMapLayer node for interacting with the game map.
 var map: TileMapLayer
 
 var player: PlayerNode
+## Signal emitted when the player's turn ends.
+signal player_moved(position: Vector2i)
+## Reference to the AStarGrid2D node for pathfinding.
+var pathfinder: AStarGrid2D
+
+
 
 ## return A [PackedVector2Array] containing a path as a series of points from the start to the end position.
 ## [param start]: A [Vector2] representing the starting position in the world.

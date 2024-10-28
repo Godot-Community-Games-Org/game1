@@ -1,6 +1,8 @@
 extends Node2D
 class_name PlayerNode
 
+## Signal emitted when the player's turn ends.
+signal player_moved(position: Vector2i)
 ## Number of actions the player can take in a single turn
 @export var Actions: int = 2
 

@@ -1,5 +1,4 @@
 extends InteractableObject
-class_name InteractableDoor
 @export var anim:AnimatedSprite2D
 func interact() -> void:
 	$Button/Control.visible = true
