@@ -13,4 +13,6 @@ speed = 400.0
 texture = ExtResource("2_pi6i1")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.6, 0.6)
+zoom = Vector2(2, 2)
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0

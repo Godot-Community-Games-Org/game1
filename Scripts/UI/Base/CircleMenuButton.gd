@@ -1,7 +1,6 @@
 @tool
 extends BaseButton
 class_name CircleMenuButton
-## CircleGui Class: [br]
 ## A custom radial selection menu for displaying and interacting with options within a 
 ## circular interface.
 # --- Constants ---
@@ -22,15 +21,12 @@ const SPRITE_SIZE = Vector2(32, 32)                    ## Size for aligning opti
 
 
 # --- Private Properties ---
-
 var _selection: int = 0  # Currently selected option index
 
 # --- Signals ---
-
-signal closed(selected: int) ## Signal emitted when the _selection is confirmed
+signal closed ## Signal emitted when the _selection is confirmed
 
 # --- Built-in Callbacks ---
-
 func _process(_delta: float) -> void:
 	if !visible:
 		return
@@ -49,14 +45,14 @@ func _process(_delta: float) -> void:
 		_selection = -1
 
 	if Input.is_action_just_pressed("ui_accept"):
-		close()
+		closed.emit()
 
 	queue_redraw()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed and visible:
 		get_tree().get_root().set_input_as_handled()
-		close()
+		closed.emit()
 
 func _draw() -> void:
 	var offset = SPRITE_SIZE / -2  # Offset for centering text on options
@@ -107,8 +103,7 @@ func _draw() -> void:
 		draw_circle(Vector2.ZERO, size_inner_radius, color_highlight)
 
 # --- Custom Methods ---
-
 ## Method to close the menu and emit the selected option
 func close():
 	hide()
-	closed.emit(_selection)
+	return _selection
