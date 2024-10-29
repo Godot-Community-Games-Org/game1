@@ -22,13 +22,15 @@ const SPRITE_SIZE = Vector2(32, 32)                    ## Size for aligning opti
 
 
 # --- Private Properties ---
-var _selection: int = 0  # Currently selected option index
+var _selection: int = -1  # Currently selected option index
 
 # --- Signals ---
 signal closed ## Signal emitted when the _selection is confirmed
 
 # --- Built-in Callbacks ---
 func _process(_delta: float) -> void:
+	if Engine.is_editor_hint():
+		return
 	if !visible:
 		return
 	var mouse_pos = get_local_mouse_position()
@@ -51,9 +53,10 @@ func _process(_delta: float) -> void:
 	queue_redraw()
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed and visible:
-		get_tree().get_root().set_input_as_handled()
-		closed.emit()
+	if not Engine.is_editor_hint():
+		if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed and visible:
+			get_tree().get_root().set_input_as_handled()
+			closed.emit()
 
 func _draw() -> void:
 	var offset = SPRITE_SIZE / -2  # Offset for centering text on options
