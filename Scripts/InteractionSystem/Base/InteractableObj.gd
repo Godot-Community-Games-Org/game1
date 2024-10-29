@@ -29,18 +29,12 @@ func _ready() -> void:
 	global.player.moved.connect(_player_moved)
 
 func _player_moved(player_position:Vector2i):
-	# Check if the player is within detection range
 	var is_within_radius := (player_position - map_position).length() < gui_detection_radius
-	
-	# Determine if GUI should be hidden based on priority
 	var should_hide_gui := global.player.selected_object and global.player.selected_object != self and global.player.selected_object.gui_interaction_priority >= gui_interaction_priority
-	
 	if is_within_radius:
-		# Handle GUI visibility and player selection
 		if should_hide_gui:
 			disabled = true
 			return
-
 		grab_focus()
 		global.player.selected_object = self
 		disabled = false

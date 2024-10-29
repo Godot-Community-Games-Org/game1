@@ -1,7 +1,9 @@
 extends InteractableObject
 
+# --- Exported Properties ---
 @export var anim:AnimatedSprite2D
 
+# --- Built-in Callbacks ---
 func _ready() -> void:
 	super()
 	gui_focus.closed.connect(end_interact)

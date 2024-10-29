@@ -3,6 +3,7 @@ extends BaseButton
 class_name CircleMenuButton
 ## A custom radial selection menu for displaying and interacting with options within a 
 ## circular interface.
+
 # --- Constants ---
 const SPRITE_SIZE = Vector2(32, 32)                    ## Size for aligning option text
 
